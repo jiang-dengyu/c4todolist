@@ -1,13 +1,18 @@
 const express= require('express')
 const app = express()
+const db =require('./models')
+const Todo = db.Todo
+
 const port = 3000
+
 /*根目錄*/
 app.get('/',(req,res)=>{
   res.send('main page successful')
 })
-
 app.get('/todos',(req,res)=>{
-  res.send('get all todos')
+  return Todo.findAll()
+    .then((todos)=> res.send({ todos }))
+    .catch((err) =>res.status(422).json(err))
 })
 /*新增*/
 app.get('/todos/new',(req,res)=>{
