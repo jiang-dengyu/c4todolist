@@ -10,6 +10,7 @@ app.engine('hbs',engine({extname:'.hbs'}))
 app.set('view engine','.hbs')
 app.set('views','./views')
 
+app.use(express.urlencoded({ extended:true }))
 
 /*根目錄*/
 app.get('/',(req,res)=>{
@@ -23,13 +24,18 @@ app.get('/todos', (req, res) => {
 		.then((todos) => res.render('todos', { todos }))
 		.catch((err) => res.status(422).json(err))
 })
+
 /*新增*/
 app.get('/todos/new',(req,res)=>{
-  res.send('create todo')
+  return res.render('new')
 })
 app.post('/todos',(req,res)=>{
-  res.send('add todo')
+  const name =req.body.name
+  return Todo.create({name:name})
+    .then(()=> res.redirect('/todos'))
+    .catch((err) => console.log(err))
 })
+
 /*編輯*/
 app.get('/todos/:id',(req,res)=>{
   res.send(`get todos: ${req.params.id}`)
