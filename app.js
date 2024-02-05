@@ -15,10 +15,13 @@ app.set('views','./views')
 app.get('/',(req,res)=>{
   res.render('index')
 })
-app.get('/todos',(req,res)=>{
-  return Todo.findAll()
-    .then((todos)=> res.send({ todos }))
-    .catch((err) =>res.status(422).json(err))
+app.get('/todos', (req, res) => {
+	return Todo.findAll({
+		attributes: ['id', 'name'],
+		raw: true
+	})
+		.then((todos) => res.render('todos', { todos }))
+		.catch((err) => res.status(422).json(err))
 })
 /*新增*/
 app.get('/todos/new',(req,res)=>{
