@@ -38,7 +38,13 @@ app.post('/todos',(req,res)=>{
 
 /*編輯*/
 app.get('/todos/:id',(req,res)=>{
-  res.send(`get todos: ${req.params.id}`)
+  const id = req.params.id
+  return Todo.findByPk(id,{
+    attributes:['id','name'],
+    raw: true
+  })
+    .then((todo)=>res.render('todo',{todo}))
+    .catch((err)=>console.log(err))
 })
 app.get('/todos/:id/edit',(req,res)=>{
   req.send(`get todos edit: ${req.params.id}`)
