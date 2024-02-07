@@ -12,6 +12,9 @@ app.set('views','./views')
 
 app.use(express.urlencoded({ extended:true }))
 
+const methodOverride =require('method-override')
+app.use(methodOverride('_method'))
+
 /*根目錄*/
 app.get('/',(req,res)=>{
   res.render('index')
@@ -36,7 +39,7 @@ app.post('/todos',(req,res)=>{
     .catch((err) => console.log(err))
 })
 
-/*編輯*/
+/*單一詳細內容*/
 app.get('/todos/:id',(req,res)=>{
   const id = req.params.id
   return Todo.findByPk(id,{
@@ -46,11 +49,21 @@ app.get('/todos/:id',(req,res)=>{
     .then((todo)=>res.render('todo',{todo}))
     .catch((err)=>console.log(err))
 })
+/*編輯*/
 app.get('/todos/:id/edit',(req,res)=>{
-  req.send(`get todos edit: ${req.params.id}`)
+  const id = req.params.id
+  return Todo.findByPk(id,{
+    attributes:['id','name'],
+    raw : true
+  })
+    .then((todo)=>{res.render('edit',{todo})})
 })
 app.put('/todos/:id',(req,res)=>{
-  res.send('modify todo')
+  const body = req.body
+  const id = req.params.id
+
+  return Todo.update({name:body.name},{where:{id}})
+    .then( ()=> res.redirect(`/todos/${id}`))
 })
 app.delete('/todos/:id',(req,res)=>{
   res.send('delete todo')
