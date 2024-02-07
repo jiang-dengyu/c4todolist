@@ -65,8 +65,11 @@ app.put('/todos/:id',(req,res)=>{
   return Todo.update({name:body.name},{where:{id}})
     .then( ()=> res.redirect(`/todos/${id}`))
 })
+/*刪除*/
 app.delete('/todos/:id',(req,res)=>{
-  res.send('delete todo')
+  const id= req.params.id 
+  return Todo.destroy({where: {id} })
+    .then(()=>res.redirect('/todos'))
 })
 
 app.listen(port,()=>{
