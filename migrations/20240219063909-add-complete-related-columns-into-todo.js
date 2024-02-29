@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -7,9 +7,9 @@ module.exports = {
       'Todos',
       'isComplete',
       {
-        type:Sequelize.BOOLEAN,
-        defaultValue:false,
-        allowNull:false
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       }
     )
   },
@@ -20,4 +20,4 @@ module.exports = {
       'isComplete'
     )
   }
-};
+}
