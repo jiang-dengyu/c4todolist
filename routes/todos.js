@@ -28,7 +28,14 @@ router.get("/", (req, res, next) => {
       next(error);
     });
 });
-
+/* 註冊 */
+router.get("/register", (req, res) => {
+  return res.render("register");
+});
+/* 登入 */
+router.get("/login", (req, res) => {
+  return res.render("login");
+});
 /* 新增 */
 router.get("/new", (req, res) => {
   return res.render("new");
@@ -106,11 +113,6 @@ router.delete("/:id", (req, res, next) => {
       error.errorMessage = "刪除失敗:(";
       next(error);
     });
-});
-
-/* 註冊 */
-router.get("/register", (req, res) => {
-  return res.render("register");
 });
 
 module.exports = router;

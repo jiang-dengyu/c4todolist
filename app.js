@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 if (process.env.NODE_ENV === "development") {
-  require("dotenv").config();
+    require("dotenv").config();
 }
 console.log(process.env.NODE_ENV, process.env.SESSION_SECRET);
 
@@ -27,6 +27,7 @@ const errorHandler = require("./middlewares/error-handler");
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+    /*secret: "ThisIsSecret",*/
     resave: false,
     saveUninitialized: false,
   })
