@@ -3,6 +3,7 @@ const router = express.Router();
 
 const db = require("../models");
 const Todo = db.Todo;
+const User = db.Users;
 
 /* todos目錄 */
 router.get("/", (req, res, next) => {
