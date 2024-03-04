@@ -1,16 +1,16 @@
 <h1>Register</h1>
 {{> message}}
 <div style="display: flex;">
-  <form action="/register" method="POST">
+  <form action="/users/register/create" method="POST">
     <label for="name"><input type="text" name="name"  placeholder="name" style="display: block;"></label>
     
     <label for="email"><input type="email" name="email" placeholder="Email" style="display: block;"></label>
     
     <label for="password"><input type="password" name="password" placeholder="Password" style="display: block;"></label>
     
-    <label for="confirm_password"><input type="password" name="confirm_password" placeholder="Confirm password" style="display: block;"></label>
+    <label for="confirmPassword"><input type="password" name="confirmPassword" placeholder="confirmPassword" style="display: block;"></label>
     
     <button type="submit">register</button>
   </form>
 </div>
-<span>Already have an account? <a href="/users/login">Login</a> </span>
+<span>Already have an account? <a href="/login">Login</a> </span>
