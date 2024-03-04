@@ -3,7 +3,6 @@ const router = express.Router();
 
 const db = require("../models");
 const Todo = db.Todo;
-const User = db.Users;
 
 /* todos目錄 */
 router.get("/", (req, res, next) => {
@@ -28,14 +27,6 @@ router.get("/", (req, res, next) => {
       error.errorMessage = "資料取得失敗:(";
       next(error);
     });
-});
-/* 註冊 */
-router.get("/register", (req, res) => {
-  return res.render("register");
-});
-/* 登入 */
-router.get("/login", (req, res) => {
-  return res.render("login");
 });
 /* 新增 */
 router.get("/new", (req, res) => {

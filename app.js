@@ -3,9 +3,9 @@ const app = express();
 const port = 3000;
 
 if (process.env.NODE_ENV === "development") {
-    require("dotenv").config();
+  require("dotenv").config();
 }
-console.log(process.env.NODE_ENV, process.env.SESSION_SECRET);
+console.log(process.env.NODE_ENV, process.env.SESSION_SECRET); //每次重開時的環境變數與session確認
 
 const router = require("./routes");
 

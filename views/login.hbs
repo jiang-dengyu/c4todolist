@@ -1,9 +1,10 @@
 <h1>Login</h1>
+{{> message}}
  <div style="display:flex">
-  <form action="" method="">
+  <form action="/login" method="POST">
     <label id="email" style="display: block;"><input for="email" placeholder="enter the email" required></label>
     <label id="password" style="display: block;"><input for="password" placeholder="enter the password" required></label>
     <button type="submit">login</button>
   </form>
  </div>
-<span>No account? <a href="/todos/register">Register</a> </span>
+<span>No account? <a href="/users/register">Register</a> </span>
