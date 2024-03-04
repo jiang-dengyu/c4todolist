@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-
+/*************************************************************************************** */
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const authHandler = require("../middlewares/auth-handler");
 
+/*pssport的登入驗證核心策略*/
 passport.use(
   new LocalStrategy({ usernameField: "email" }, (username, password, done) => {
     return Users.findOne({
@@ -23,20 +25,27 @@ passport.use(
       });
   })
 );
+/*序列化*/
 passport.serializeUser((user, done) => {
   const { id, name, email } = user;
   return done(null, { id: id, name: name, email: email });
 });
-
+/*反序列化*/
+passport.deserializeUser((user, done) => {
+  done(null, { id: user.id });
+});
+/***************************************************************************************** */
+/*各個模組化的路由*/
 const todos = require("./todos");
 const users = require("./users");
 
-router.use("/todos", todos);
+router.use("/todos", authHandler, todos);
 router.use("/users", users);
 
+/*database導入*/
 const db = require("../models");
 const Users = db.Users;
-
+/************************************************************************************** */
 /* 根目錄 */
 router.get("/", (req, res) => {
   res.render("index");
@@ -51,6 +60,7 @@ router.get("/login", (req, res) => {
 });
 router.post(
   "/login",
+  //直接將req,res的middelware轉交給passport local strategy那一段
   passport.authenticate("local", {
     successRedirect: "/todos",
     failureRedirect: "/login",
@@ -59,7 +69,12 @@ router.post(
 );
 /* 登出 */
 router.post("/logout", (req, res) => {
-  return res.send("logout");
+  req.logout((error) => {
+    if (error) {
+      next(error);
+    }
+    return res.redirect("/login");
+  });
 });
 
 module.exports = router;
